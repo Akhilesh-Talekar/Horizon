@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const MyBanks = () => {
   return (
     <div>
-      YOUR BANKS
+    Hello
     </div>
-  )
-}
+  );
+};
 
 export default MyBanks;
