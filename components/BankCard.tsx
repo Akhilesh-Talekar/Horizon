@@ -37,7 +37,7 @@ const BankCard = ({
 
         {/* Card Decorations */}
         <div className="absolute top-3 right-3 flex items-center gap-2">
-          <Image src={"/icons/Paypass.svg"} width={16} height={20} alt="Paypass logo" />
+          <Image src={"/icons/Paypass.svg"} width={16} height={20} alt="Paypass logo"/>
           <Image
             src={"/icons/mastercard.svg"}
             width={36}

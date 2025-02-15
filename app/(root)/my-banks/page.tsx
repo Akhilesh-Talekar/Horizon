@@ -3,7 +3,7 @@ import React from "react";
 const MyBanks = () => {
   return (
     <div>
-    Hello
+      My Banks
     </div>
   );
 };
