@@ -18,18 +18,19 @@ import { Input } from "@/components/ui/input";
 import CustomInput from "./CustomInput";
 
 import { z } from "zod";
-import { authformSchema } from "@/lib/utils";
+import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import Signin from "@/app/(auth)/sign-in/page";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLink from "./PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
   const [user, setuser] = useState(null);
   const [isLoading, setisLoading] = useState(false);
 
-  const formSchema = authformSchema(type);
+  const formSchema = authFormSchema(type);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,14 +38,14 @@ const AuthForm = ({ type }: { type: string }) => {
     defaultValues: {
       email: "",
       password: "",
-      firstName: "",
+      firstName: "", // Ensure empty string instead of undefined
       lastName: "",
       address1: "",
+      city: "",
       state: "",
       postalCode: "",
-      dob: "",
+      dateOfBirth: "",
       ssn: "",
-      city: "",
     },
   });
 
@@ -58,7 +59,19 @@ const AuthForm = ({ type }: { type: string }) => {
       //Sign up with Appwrite & create a plaid token
 
       if (type === "sign-up") {
-        const newUser = await signUp(data);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password,
+        };
+        const newUser = await signUp(userData);
         setuser(newUser);
       }
 
@@ -68,7 +81,7 @@ const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         });
 
-        if(response) router.push('/');
+        if (response) router.push("/");
       }
     } catch (err) {
       console.log(err);
@@ -102,7 +115,9 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">LINK COMPONENT</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+        </div>
       ) : (
         <>
           <Form {...form}>
@@ -158,7 +173,7 @@ const AuthForm = ({ type }: { type: string }) => {
                   <div className="flex gap-4">
                     <CustomInput
                       control={form.control}
-                      name={"dob"}
+                      name={"dateOfBirth"}
                       label={"Date of Birth"}
                       placeholder={"DD-MM-YYYY"}
                     />
