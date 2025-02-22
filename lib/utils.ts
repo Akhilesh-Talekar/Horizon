@@ -67,9 +67,9 @@ export const formatDateTime = (dateString: Date) => {
 };
 
 export function formatAmount(amount: number): string {
-  const formatter = new Intl.NumberFormat("en-IN", {
+  const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "INR",
+    currency: "USD",
     minimumFractionDigits: 2,
   });
 
@@ -134,40 +134,32 @@ export function countTransactionCategories(
   transactions: Transaction[]
 ): CategoryCount[] {
   const categoryCounts: { [category: string]: number } = {};
-  let totalCount = 0;
 
-  // Iterate over each transaction
-  transactions &&
-    transactions.forEach((transaction) => {
-      // Extract the category from the transaction
-      const category = transaction.category;
+  // Count the occurrences of each category
+  transactions.forEach((transaction) => {
+    const category = transaction.category;
+    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+  });
 
-      // If the category exists in the categoryCounts object, increment its count
-      if (categoryCounts.hasOwnProperty(category)) {
-        categoryCounts[category]++;
-      } else {
-        // Otherwise, initialize the count to 1
-        categoryCounts[category] = 1;
-      }
+  // Calculate total transactions (only once)
+  const totalCount = transactions.length;
 
-      // Increment total count
-      totalCount++;
-    });
-
-  // Convert the categoryCounts object to an array of objects
+  // Convert categoryCounts to an array and add percentage & totalCount
   const aggregatedCategories: CategoryCount[] = Object.keys(categoryCounts).map(
     (category) => ({
       name: category,
       count: categoryCounts[category],
-      totalCount,
+      totalCount, // ✅ Fix: Add totalCount property
     })
   );
 
-  // Sort the aggregatedCategories array by count in descending order
+  // Sort categories by count in descending order
   aggregatedCategories.sort((a, b) => b.count - a.count);
 
   return aggregatedCategories;
 }
+
+
 
 export function extractCustomerIdFromUrl(url: string) {
   // Split the URL string by '/'

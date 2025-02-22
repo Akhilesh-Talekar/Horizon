@@ -2,16 +2,17 @@ import React from "react";
 import Link from "next/link";
 import { formatAmount } from "@/lib/utils";
 import Image from "next/image";
+import Copy from "./Copy";
 
 const BankCard = ({
   account,
   userName,
-  showBalance = false,
+  showBalance = true,
 }: CreditCardProps) => {
   return (
     <div className="flex flex-col items-center">
       {/* Single Card Container */}
-      <Link href={"/"} className="relative group w-[280px] h-[160px] rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-indigo-600 overflow-hidden transform transition-all duration-300 hover:scale-105">
+      <Link href={`transaction-history/?id=${account.appwriteItemId}`} className="relative group w-[280px] h-[160px] rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-indigo-600 overflow-hidden transform transition-all duration-300 hover:scale-105">
         <div className="absolute inset-0 p-4 flex flex-col justify-between">
           {/* Card Content */}
           <div>
@@ -30,7 +31,7 @@ const BankCard = ({
               <h2 className="font-medium text-white">●● / ●●</h2>
             </div>
             <p className="text-sm font-semibold tracking-widest text-white">
-              ●●●● ●●●● ●●●● <span className="text-md">{8847}</span>
+              ●●●● ●●●● ●●●● <span className="text-md">{account.mask}</span>
             </p>
           </article>
         </div>
@@ -55,6 +56,7 @@ const BankCard = ({
           className="absolute top-0 left-0 opacity-25"
         />
       </Link>
+      {showBalance && <Copy title={account?.sharableId}/>}
     </div>
   );
 };

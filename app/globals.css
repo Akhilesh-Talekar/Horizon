@@ -43,6 +43,7 @@
   background: #7878a3;
 }
 
+
 @layer utilities {
   .input-class {
     @apply text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;
@@ -266,7 +267,7 @@
   }
 
   .plaidlink-default {
-    @apply flex !justify-start cursor-pointer gap-3 rounded-lg !bg-transparent flex-row;
+    @apply flex !justify-start cursor-pointer gap-3 rounded-lg !bg-transparent flex-row px-[12px];
   }
 
   /* Auth */
@@ -380,3 +381,4 @@
     @apply text-16 font-semibold text-black-2 max-xl:hidden;
   }
 }
+
