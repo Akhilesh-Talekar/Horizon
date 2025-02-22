@@ -151,7 +151,7 @@ const AuthForm = ({ type }: { type: string }) => {
                     control={form.control}
                     name={"city"}
                     label={"City"}
-                    placeholder={"Example: Pune"}
+                    placeholder={"Example: New York CIty"}
                   />
 
                   <div className="flex gap-4">
@@ -159,14 +159,14 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control}
                       name={"state"}
                       label={"State"}
-                      placeholder={"Example: Delhi"}
+                      placeholder={"Example: NY"}
                     />
 
                     <CustomInput
                       control={form.control}
                       name={"postalCode"}
                       label={"Postal Code"}
-                      placeholder={"Example: 110001"}
+                      placeholder={"Example: 10118"}
                     />
                   </div>
 
@@ -175,7 +175,7 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control}
                       name={"dateOfBirth"}
                       label={"Date of Birth"}
-                      placeholder={"DD-MM-YYYY"}
+                      placeholder={"YYYY-MM-DD"}
                     />
 
                     <CustomInput
