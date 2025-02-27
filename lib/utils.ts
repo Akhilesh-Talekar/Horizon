@@ -187,6 +187,11 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
+export function getSecondWord(sentence: string) {
+  const words = sentence.trim().split(" ");
+  return words.length === 2 ? words[1] : null; // Ensures it's a two-word sentence
+}
+
 
 export const authFormSchema = (type:string) => z.object({
   // Sign-Up
